@@ -1,6 +1,4 @@
 # Edit this configuration file to define what should be installed on
-
-
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -8,8 +6,9 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
+      ./packages.nix
       inputs.spicetify-nix.nixosModules.default
     ];
 
@@ -60,7 +59,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -110,95 +109,6 @@
     localNetworkGameTransfers.openFirewall=true;
   };
   programs.dconf.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-   neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-   linuxHeaders
-   wget
-   curl
-   firefox
-   kitty
-   alacritty
-   git
-   binutils
-   gcc
-   rustup
-   egl-wayland
-   wl-clipboard
-   wl-clipboard-rs
-   xwayland
-   wayland-protocols
-   zsh
-   btop
-   cava
-   gnumake
-   xdg-desktop-portal
-   xdg-desktop-portal-gtk
-   file
-   rofi
-   kdePackages.dolphin
-   mako
-   pkgs.gh
-   pipewire
-   wireplumber
-   hyprpolkitagent
-   pkgs.kdePackages.qtwayland
-   inputs.quickshell.packages.${pkgs.system}.default
-   pkgs.nerd-fonts._0xproto
-   pkgs.nerd-fonts.jetbrains-mono
-   hyprshot
-   satty
-   zsh-powerlevel10k
-   pkgs.unixtools.whereis
-   discordo
-   zoxide
-   fish
-   python3
-   wayfarer
-   pamixer
-   gnupg
-   pinentry-curses
-   yazi
-   cron
-   spotify
-   vinegar
-   obsidian
-   ydotool
-   material-symbols
-   ibm-plex
-   brightnessctl
-   imagemagick
-   kdePackages.qt6ct
-   papirus-icon-theme
-   darkly-qt5
-   darkly
-   doas
-   pinentry-rofi
-   arrpc
-   protonmail-desktop
-   tor-browser
-   protonvpn-cli
-   protonvpn-gui
-   deluge
-   wine64Packages.unstableFull
-   tor
-   libc
-   glibc
-   tinycc
-   openjdk21
-   gradle
-   gimp
-   xdg-utils
-   flatpak-xdg-utils
-   ncurses
-  ] ++ (with pkgs.python313Packages; [
-    aubio
-    pyaudio
-    numpy
-    pip
-  ]);
   programs.gnupg.agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-rofi;
@@ -234,7 +144,7 @@
       #pkgs.xdg-desktop-portal-kde
       pkgs.xdg-desktop-portal-wlr
     ];
-    
+
 
     config.common.default = [ "*" ];
   };
